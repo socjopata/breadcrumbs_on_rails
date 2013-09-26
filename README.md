@@ -3,6 +3,9 @@
 *BreadcrumbsOnRails* is a simple Ruby on Rails plugin for creating and managing a breadcrumb navigation for a Rails project.
 It provides helpers for creating navigation elements with a flexible interface.
 
+## My fork includes:
+
+* Ability to specify to render url for current element, by passing `link_to_current` option
 
 ## Requirements
 

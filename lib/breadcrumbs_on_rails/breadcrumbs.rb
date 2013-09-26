@@ -44,27 +44,27 @@ module BreadcrumbsOnRails
 
       protected
 
-        def compute_name(element)
-          case name = element.name
+      def compute_name(element)
+        case name = element.name
           when Symbol
             @context.send(name)
           when Proc
             name.call(@context)
           else
             name.to_s
-          end
         end
+      end
 
-        def compute_path(element)
-          case path = element.path
+      def compute_path(element)
+        case path = element.path
           when Symbol
             @context.send(path)
           when Proc
             path.call(@context)
           else
             @context.url_for(path)
-          end
         end
+      end
 
     end
 
@@ -88,7 +88,11 @@ module BreadcrumbsOnRails
         if element.path == nil
           content = compute_name(element)
         else
-          content = @context.link_to_unless_current(compute_name(element), compute_path(element), element.options)
+          if @options[:link_to_current]
+            content = @context.link_to(compute_name(element), compute_path(element), element.options)
+          else
+            content = @context.link_to_unless_current(compute_name(element), compute_path(element), element.options)
+          end
         end
         if @options[:tag]
           @context.content_tag(@options[:tag], content)
@@ -119,9 +123,9 @@ module BreadcrumbsOnRails
       # @return [Element]
       #
       def initialize(name, path = nil, options = {})
-        self.name     = name
-        self.path     = path
-        self.options  = options
+        self.name    = name
+        self.path    = path
+        self.options = options
       end
     end
 
