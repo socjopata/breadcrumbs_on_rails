@@ -88,7 +88,7 @@ module BreadcrumbsOnRails
         if element.path == nil
           content = compute_name(element)
         else
-          if @options[:link_to_current]
+          if element.options[:link_to_current]
             content = @context.link_to(compute_name(element), compute_path(element), element.options)
           else
             content = @context.link_to_unless_current(compute_name(element), compute_path(element), element.options)
